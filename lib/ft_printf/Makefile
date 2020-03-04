@@ -12,6 +12,15 @@
 
 
 .PHONY: debug all clean fclean re
+
+# COLORS
+
+GREEN = \033[0;32m
+RED = \033[0;31m
+RED_B = \033[1;31m
+BLUE = \033[1;34m
+RESET = \033[0m
+
 HEADDERS = libft.h ft_printf.h get_next_line.h
 VPATH = libft:src/:include
 FT_PRINTF = libftprintf.a
@@ -19,7 +28,7 @@ LIBFT = libft.a
 CFLAGS = -Wall -Werror -Wextra
 HEADER = -I include
 
-OBJ_DIR = obj/
+OBJ_DIR = temp/
 
 LFT_SRC =   ft_abs.c \
             ft_atoi.c \
@@ -134,7 +143,7 @@ GNL_OBJ = $(addprefix $(OBJ_DIR), $(patsubst %.c, %.o, $(GNL_SRC)))
 
 all: $(FT_PRINTF)
 
-GOALS = all $(LIBFT) $(FT_PRINTF) re fclean clean
+GOALS = all $(LIBFT) $(FT_PRINTF) re fclean clean echo
 
 debug:: override CFLAGS =-g
 ifneq ($(MAKECMDGOALS),$(GOALS))
@@ -143,23 +152,30 @@ endif
 
 $(FT_PRINTF):: $(OBJ_DIR)
 $(FT_PRINTF):: $(LFT_OBJ) $(PF_OBJ) $(GNL_OBJ)
+	@echo "$(BLUE)ft_printf:$(GREEN) libftprintf.a is done$(RESET)"
 	@ar rc $@ $^
 
 $(LIBFT):: $(OBJ_DIR)
 $(LIBFT):: $(LFT_OBJ) $(GNL_OBJ)
+	@echo "$(GREEN)libft objects done$(RESET)"
 	@ar rc $@ $^
 
 $(OBJ_DIR):
-	mkdir -p $(OBJ_DIR)
+	@mkdir -p $(OBJ_DIR)
+	@echo "$(BLUE)ft_printf: $(GREEN)object folder $(BLUE)temp$(GREEN) has been done$(RESET)"	
 
 $(OBJ_DIR)%.o: %.c $(HEADDERS)
-	gcc $(CFLAGS) -c $< -o $@ $(HEADER)
+	@gcc $(CFLAGS) -c $< -o $@ $(HEADER)
 
 clean:
+	@echo "$(RED_B)ft_printf: $(RED)object files have been deleted$(RESET)"
 	@rm -rf $(OBJ_DIR)
 
-fclean: clean
+fclean:
+	@echo "$(RED_B)ft_printf: $(RED)object files have been deleted$(RESET)"
+	@rm -rf $(OBJ_DIR)
 	@rm -f $(LIBFT)
 	@rm -f $(FT_PRINTF)
+	@echo "$(RED_B)ft_printf:$(RED) libftprintf.a have been deleted$(RESET)"
 
 re: fclean all
