@@ -33,6 +33,26 @@ typedef struct dirent	t_dirent;
 typedef struct passwd	t_passwd;
 typedef struct group	t_group;
 
+typedef struct		s_file
+{
+	mode_t			mode;
+	nlink_t			st_nlink;
+	uid_t			st_uid;
+	gid_t			st_gid;
+	off_t			size;
+	dev_t			st_rdev;
+	time_t			time;
+	long			ntime;
+	char			full_path[PATH_MAX];
+	char 			*name;
+    struct s_file	*next;
+}					t_file;
+
+typedef struct  	s_ls
+{
+    char        	*name;
+    struct s_ls 	*next;
+}               	t_ls;
 
 // typedef struct	s_dirent
 // {

@@ -37,24 +37,42 @@
 // 	return (t);
 // }
 
-int main(int ac, char **argv) 
+// void	fill_rights(const char* name, t_stat *staty)
+// {
+
+// }
+
+int main(int ac, char **av) 
 {
-    DIR *dir;
-    t_dirent *entry;
+    DIR			*dir;
+    t_dirent	*entry;
+	t_stat		*staty = NULL;
 
 	if (ac == 1)
 		dir = opendir(".");
 	else
-		dir = opendir(argv[1]);
+		dir = opendir(av[1]);
     if (!dir)
 	{
         perror("diropen");
         exit(1);
     }        
 	while ((entry = readdir(dir)) != NULL)
-        ft_printf("%llu - %s [%d] %d\n",
-            entry->d_ino, entry->d_name, entry->d_type, entry->d_reclen);
-    // while ((entry = readdir(dir)) != NULL)
+    {
+		if (stat(entry->d_name, staty))
+		{
+			perror("fileread");
+			exit(1);
+		}
+		// if (entry->d_name[0] != '.')
+	    // 	ft_printf("%llu - %s [%d] %d\n",
+        //     entry->d_ino, entry->d_name, entry->d_type, entry->d_reclen);
+		if (entry->d_name[0] != '.')
+	    	ft_printf("%s\n",
+            entry->d_name);
+	}
+
+	// while ((entry = readdir(dir)) != NULL)
     //     printf("%llu - %s [%d] %d\n",
     //         entry->d_ino, entry->d_name, entry->d_type, entry->d_reclen);
     closedir(dir);

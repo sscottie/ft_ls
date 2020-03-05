@@ -162,7 +162,7 @@ $(LIBFT):: $(LFT_OBJ) $(GNL_OBJ)
 
 $(OBJ_DIR):
 	@mkdir -p $(OBJ_DIR)
-	@echo "$(BLUE)ft_printf: $(GREEN)object folder $(BLUE)temp$(GREEN) has been done$(RESET)"	
+	@echo "$(BLUE)ft_printf: $(GREEN)Objects' folder $(BLUE)temp$(GREEN) has been done$(RESET)"	
 
 $(OBJ_DIR)%.o: %.c $(HEADDERS)
 	@gcc $(CFLAGS) -c $< -o $@ $(HEADER)

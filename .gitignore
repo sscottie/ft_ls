@@ -1,0 +1,5 @@
+.vscode
+ft_ls
+*.o
+temp
+libftprintf.a
